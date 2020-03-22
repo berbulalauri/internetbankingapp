@@ -1,5 +1,5 @@
 {
-  "name": "AspNet5DemoApp",
+  "name": "internetbankingapp",
   "description": "Demo app on ASP.NET Core",
   "repository": "https://github.com/berbulalauri/internetbankingapp",
   "keywords": ["aspnet", "core"],
