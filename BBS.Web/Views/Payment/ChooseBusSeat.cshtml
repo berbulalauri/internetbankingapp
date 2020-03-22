@@ -1,0 +1,135 @@
+﻿@using BBS.Models.ApiModels
+@using BBS.Web.Helpers
+
+@model TripTicketViewModel
+@{
+    ViewData["Title"] = "Choose Bus Seat";
+}
+
+<h1 class="text-center text-muted mt-3 mb-3">Select Seat</h1>
+
+
+<div class="row content-card p-2 pt-2 pb-2">
+    <div class="col-6 col-md-6 col-sm-6">
+        <div class="row">
+            <div class="col-6 col-md-6 col-sm-6">
+                <p class="mb-1">From: <span class="text-muted" >@Model.DestinationFrom</span></p>
+            </div>
+            <div class="col-6 col-md-6 col-sm-6 text-left">
+                <p class="mb-1">To: <span class="text-muted">@Model.DestinationTo</span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-6 col-sm-6">
+                <p class="mb-1">Departure: <span class="text-muted">@Model.Departure</span></p>
+            </div>
+            <div class="col-6 col-md-6 col-sm-6 text-left">
+                <p class="mb-1">Arrives: <span class="text-muted">@Model.Departure.AddMinutes(Model.TotalMinutes)</span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 col-md-4 col-sm-4">
+                <p class="mb-1">Duration: <span class="text-muted">@ConvertMinutesToHourHelper.MinutesToHour(Model.TotalMinutes).TotalHours Hour</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 col-md-6 col-sm-6 text-right pr-4">
+        <p class="mb-2">Ticket Price</p>
+        <p class="mb-1 mr-3 text-muted">@Model.TicketPrice ₾<p>
+    </div>
+</div>
+
+
+<div class="row justify-content-center">
+    <div class="col-8 col-md-8 col-sm-8 content-card rounded mt-3 p-2">
+        <div class="row justify-content-center mt-2">
+            <p class="text-muted mr-1"><i class="fas fa-circle text-primary"></i> Available</p> 
+            <p class="text-muted ml-1 mr-1"><i class="fas fa-circle text-secondary"></i> Not Selling</p>
+            <p class="text-muted ml-1"><i class="fas fa-circle text-danger"></i> Selected</p>
+        </div>
+
+
+        <div class="row">
+            <div class="bus text-center pt-2 pr-4 pb-4 pl-4">
+                @for (int i = 1; i <= Model.TotalSeats; i++)
+                {
+                    if (Model.FreeSeats.Contains(i))
+                    {
+                        <div id="active" class="bus__seat mt-3 active-seat">@i</div>
+                    }
+                    else
+                    {
+                        <div class="bus__seat mt-3 taken-seat">@i</div>
+                    }
+
+
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 col-md-4 col-sm-4">
+        <form method="post" class="mt-3 h-100 d-flex flex-column">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <div hidden>
+                <div class="form-group">
+                    <label asp-for="TripId"></label>
+                    <input asp-for="TripId" value="@Model.TripId"/>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DestinationFrom"></label>
+                    <input asp-for="DestinationFrom" value="@Model.DestinationFrom" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="DestinationTo"></label>
+                    <input asp-for="DestinationTo" value="@Model.DestinationTo" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Departure"></label>
+                    <input asp-for="Departure" value="@Model.Departure" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalMinutes"></label>
+                    <input asp-for="TotalMinutes" value="@Model.TotalMinutes" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="TicketPrice"></label>
+                    <input asp-for="TicketPrice" value="@Model.TicketPrice" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalSeats"></label>
+                    <input asp-for="TotalSeats" value="@Model.TotalSeats" />
+                </div>
+            </div>
+            <label class="control-label">Select sit for passenger</label>
+            <input asp-for="SeatNumbers" id="seatInput" class="form-control mb-5" type="text" />
+
+            <div class="mt-auto mb-3 text-right">
+                <button class="btn btn-secondary mt-auto w-75" type="submit">Complete Ordering</button>
+                <a class="btn btn-dark mt-2 w-75" asp-controller="Payment" asp-action="BookTicket">Back</a>
+            </div>
+        </form>
+    </div>
+    <div class="row content-card seats">
+
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".active-seat").click(function (c) {
+                var valueToReplce = $("#seatInput").val();
+                if ($("#seatInput").val().length > 0) {
+                    valueToReplce += ', ';
+                }
+                valueToReplce += c.target.innerText;
+                $("#seatInput").val(valueToReplce);
+                $(this).toggleClass('selected-seat');
+            });
+        });
+    </script>
+}

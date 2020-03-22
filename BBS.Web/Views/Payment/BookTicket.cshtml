@@ -1,0 +1,68 @@
+﻿@using BBS.Models.ApiModels
+@model Trip
+
+@{
+    ViewData["Title"] = "Book ticket";
+}
+
+
+<h1 class="text-center text-muted mt-3 mb-3">Book tickets your way</h1>
+@if (ViewData["message"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewData["message"].ToString()
+    </div>
+}
+<form class="card content-card p-2" asp-action="BookTicket">
+
+    <div class="form-group row">
+        <label asp-for="DestinationFromId" class="col-sm-2 col-form-label">From</label>
+        <div class="col-sm-4">
+            <select asp-for="DestinationFromId" class="form-control custom-select">
+                @foreach (var item in ViewData["destinations"] as IEnumerable<Destination>)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+            <span asp-validation-for="DestinationFromId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="DestinationToId" class="col-sm-2 col-form-label">To</label>
+        <div class="col-sm-4">
+            <select asp-for="DestinationToId" class="form-control custom-select">
+                @foreach (var item in ViewData["destinations"] as IEnumerable<Destination>)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </select>
+            <span asp-validation-for="DestinationToId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="Departure" class="col-sm-2 col-form-label">Date</label>
+        <div class="col-sm-4">
+            <input asp-for="Departure" type="date" class="form-control" />
+            <span asp-validation-for="Departure" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label asp-for="FreeSeatCount" class="col-sm-2 col-form-label">Free sits</label>
+        <div class="col-sm-2">
+            <input asp-for="FreeSeatCount" type="number" class="form-control" />
+            <span asp-validation-for="FreeSeatCount" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row ml-auto mr-2 mt-5 mb-auto">
+        <a class="ml-auto btn btn-secondary" asp-area="" asp-action="Index" asp-controller="Home">Cancel</a>
+
+        <div class="ml-3">
+            <input type="submit" value="Submit" class="ml-auto btn btn-secondary">
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

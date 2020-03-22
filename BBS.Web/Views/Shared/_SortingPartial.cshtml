@@ -1,0 +1,24 @@
+﻿@model Tuple<string, string, string>
+@{
+	bool ascend = (ViewData["orderInfo"] as Tuple<string, bool>).Item2;
+	string orderBy = (ViewData["orderInfo"] as Tuple<string, bool>).Item1;
+	string headerName = Model.Item1;
+	string orderName = Model.Item2?.ToString()??headerName;
+	string action = Model.Item3??"index";
+}
+
+@if (orderBy == orderName)
+{
+	if (ascend)
+	{
+		<a asp-action="index" asp-route-order="@orderName" asp-route-ascend="False">@headerName <i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+	}
+	else
+	{
+		<a asp-action="index" asp-route-order="@orderName" asp-route-ascend="True">@headerName <i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+	}
+}
+else
+{
+	<a asp-action="index" asp-route-order="@orderName" asp-route-ascend="True">@headerName</a>
+}

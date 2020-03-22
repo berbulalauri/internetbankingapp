@@ -1,0 +1,108 @@
+﻿@model BBS.Models.Models.Deposit
+@{
+    ViewData["Title"] = "Open";
+    var interestRates = ViewData["InterestRate"] as Dictionary<int, string>;
+}
+
+    <div class="container">
+        @if (ViewData["SuccessMessage"] != null)
+        {
+        <div class="alert alert-success" role="alert">
+            @ViewData["SuccessMessage"].ToString()
+        </div>
+        }
+        <h1 class="d-flex justify-content-center opacity-90 text-muted mt-4">Deposit Opening</h1>
+        <form class="card p-2" asp-action="Open" method="post">
+            <div class="form-group row">
+                <label for="Deposit-name" class="col-sm-2 col-form-label">Name</label>
+                <div class="col-sm-10">
+                    <label id="DeffaultAccount" class="form-control">@ViewData["DepositTypeId"]</label>
+                    <input asp-for="DepositTypeId" value="@((ViewData["DepositTypeId"] as BBS.Models.Models.DepositType).Id)" hidden />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Deposit-currency" class="col-sm-2 col-form-label">Deposit currency</label>
+                <div class="col-sm-auto">
+                    <select id="DeffaultAccount" asp-for="CurrencyId" class="form-control" asp-items="ViewBag.CurrencyId"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Terms-of-deposit" class="col-sm-2 col-form-label">Term of deposit</label>
+                <div class="col-sm-auto">
+                    <select id="DeffaultAccount" asp-for="DepositTermId" class="form-control" asp-items="ViewBag.DepositTermId"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Deposit-range" class="col-sm-2 col-form-label">Amount range</label>
+                <div class="col-sm-10">
+                    <p class=" col-form-label" id="Deposit-range">From 200,00 GEL</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Deposit-amount" class="col-sm-2 col-form-label">Deposit amount</label>
+                <div class="col-sm-auto">
+                    <input type="text" class="form-control" id="Deposit-amount" asp-for="DepositAmount" placeholder="200,00">
+                    <label style="color:red">@ViewData["AboutDeposit"]</label>
+                    <span asp-validation-for="DepositAmount" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Interest-rate" class="col-sm-2 col-form-label">Interest rate</label>
+                <div class="col-sm-10">
+                    <p class=" col-form-label" id="Interest-rate">@interestRates.Values.FirstOrDefault()</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Bonus-rate" class="col-sm-2 col-form-label">Bonus rate</label>
+                <div class="col-sm-10">
+                    <p class=" col-form-label" id="Bonus-rate">Bonus rate for opening the deposit in UKRSIB online for the firs 3 months: 1%</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Interest-payment" class="col-sm-2 col-form-label">Interest payment</label>
+                <div class="col-sm-10">
+                    <p class=" col-form-label" id="Interest-payment">At the end of term</p>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="Replenishment-possible" class="col-sm-2 col-form-label">Replenishment possible</label>
+                <div class="col-sm-10">
+                    <p class=" col-form-label" id="Replenishment-possible">No</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Account-to-transfer-funds-from" class="col-sm-2 col-form-label">Account to transfer funds from</label>
+                <div class="col-sm-auto">
+                    <select id="DeffaultAccount" asp-for="AccountToTransferId" class="form-control" asp-items="ViewBag.AccountToTransferId"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Account-for-interest" class="col-sm-2 col-form-label">Account for interest</label>
+                <div class="col-sm-auto">
+                    <select id="DeffaultAccount" asp-for="AccountForInterestId" class="form-control" asp-items="ViewBag.AccountForInterestId"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary float-right">OPEN DEPOSIT</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+@section scripts {
+    <script>
+        var interestRates = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(@interestRates));
+        $(document).ready(function () {
+            $("#DeffaultAccount").change(function () {
+                var depoTypeId = $("#DeffaultAccount").val();
+                $('#Interest-rate').text(interestRates[depoTypeId]);
+            });
+        });
+    </script>
+}

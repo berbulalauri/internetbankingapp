@@ -1,0 +1,88 @@
+﻿@model BBS.Models.Models.DepositType
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h1 class="text-center">Deposit details</h1>
+
+<div class="container border" style="padding-bottom:20px">
+    <div class="row mt-5 ml-auto">
+        <div class="col-md-3 justify-content-center align-items-center">
+            <div class="c100 p5.7 ">
+                <!--Change p75 class for progress circle to update*-->
+                <span>@Model.AnnualRate</span><!--and than title to mach the progress*-->
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div><!--end of Proggressbar*-->
+        </div>
+        <div class="col-md-9">
+            <h4 class="text-center">@Model.Name</h4>
+            <br />
+            <div class="col-md-12">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-secondary alert-dismissible">
+        <strong class="col-md-10 text-justify">&#9679; @Model.BenefitsDescription</strong>
+        <a class="btn btn-outline-info btn-sm text-uppercase font-weight-bold" asp-controller="Deposit" asp-action="Add" style="float:right">Order Deposit</a>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>General Information</h3>
+            <div class="table-borderless">
+                <ul>
+                    <li>Benefits:</li>
+                    <li>@Model.BenefitsDescription</li>
+                    
+                </ul>
+            </div>
+            
+        </div>
+       
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr class="text-center">
+                                <h3>General Condition</h3>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Deposit Currency</td>
+                                <td>@Model.Currency.Name</td>
+
+
+
+
+                            </tr>
+                            <tr>
+                                <td> Interest rate</td>
+                                <td>at the end of deposite</td>
+
+                            </tr>
+                            <tr>
+                                <td> Minimum Deposit Amount</td>
+                                <td>@Model.MinimumDepositAmount</td>
+                            </tr>
+                            <tr>
+                                <td>Minimum Replenishment Amount</td>
+                                <td>@Model.MinimumReplenishmentAmount</td>
+                            </tr>
+                            <tr>
+                                <td>Maximum Deposit Amount</td>
+                                <td>@Model.MaximumDepositAmount</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              
+            </div>
+
+        </div>
+    </div>

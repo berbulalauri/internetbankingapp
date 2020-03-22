@@ -1,0 +1,114 @@
+﻿@model BBS.Models.Models.LoanType
+@{
+    ViewData["Title"] = "Delete Loan Type";
+}
+
+<h1 class="text-center text-secondary mt-3 mb-3">Delete Loan Type</h1>
+
+<div class="container border border-info rounded">
+    <dl class="row m-2">
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.GeneralInformation)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.GeneralInformation)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.MinLoanSum)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.MinLoanSum)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.MaxLoanSum)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.MaxLoanSum)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.InterestRate)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.InterestRate)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.Currency.Name)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.Currency.Name)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.LoanSummary)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.LoanSummary)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.MonthlyFee)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.MonthlyFee)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.MinTerm)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.MinTerm)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.MaxTerm)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.MaxTerm)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.PaymentForAccidentInsurance)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.PaymentForAccidentInsurance)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.FeeForInsuranceLoan)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.FeeForInsuranceLoan)
+        </dd>
+
+        <dt class="col-sm-6">
+            @Html.DisplayNameFor(model => model.FreeForServicesUponReciptCash)
+        </dt>
+        <dd class="col-sm-6">
+            @Html.DisplayFor(model => model.FreeForServicesUponReciptCash)
+        </dd>
+    </dl>
+    <form asp-action="Delete" class="row mb-3">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-secondary ml-auto mr-3" />
+        <a asp-action="Index" class="btn btn-dark mr-3">Back</a>
+    </form>
+</div>
+

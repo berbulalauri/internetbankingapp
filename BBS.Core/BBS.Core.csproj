@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Sendgrid" Version="9.12.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BBS.DAL\BBS.DAL.csproj" />
+    <ProjectReference Include="..\BBS.Interfaces\BBS.Interfaces.csproj" />
+    <ProjectReference Include="..\BBS.Logger\BBS.Logger.csproj" />
+    <ProjectReference Include="..\BBS.Models\BBS.Models.csproj" />
+  </ItemGroup>
+
+</Project>

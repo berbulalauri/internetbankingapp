@@ -1,0 +1,85 @@
+﻿@using BBS.Web.Helpers
+@model IEnumerable<BBS.Models.Models.LoanRequest>
+
+@{
+    ViewData["Title"] = "Get Users' Loan Requests";
+}
+
+<h1 class="text-center text-muted">Loan Managment</h1>
+
+<table class="table table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoanSum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Term)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfRequest)
+            </th>
+            <th>
+                Status
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AccrueAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransferAccount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comments)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoanType.Name)
+            </td>
+            <td>
+                @PrintingHelpers.DisplayMoneyWithCurrency(item.LoanSum, item.LoanType.Currency.Name)
+            </td>
+            <td>
+                @PrintingHelpers.DisplayTerm(item.Term)
+            </td>
+            <td>
+                @PrintingHelpers.DisplayDate(item.DateOfRequest)
+            </td>
+            @if (item.IsAccepted)
+            {
+                <td class="alert-success">
+                    Accepted
+                </td>
+            }
+            else if (item.IsDenied)
+            {
+                <td class="alert-danger">
+                    Rejected
+                </td>
+            }
+            else
+            {
+                <td>
+                    On Review
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.AccrueAccount.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransferAccount.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

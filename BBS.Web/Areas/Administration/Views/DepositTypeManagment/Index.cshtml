@@ -1,0 +1,129 @@
+﻿@model IEnumerable<BBS.Models.Models.DepositType>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="d-flex justify-content-center opacity-90 text-muted mt-4"> Deposit types Management</h1>
+
+<table class="table table-bordered table-responsive text-nowrap">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["Name"]">@Html.DisplayNameFor(model => model.Name)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["Description"]">@Html.DisplayNameFor(model => model.Description)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["BenefitsDescription"]">@Html.DisplayNameFor(model => model.BenefitsDescription)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["AnnualRate"]">@Html.DisplayNameFor(model => model.AnnualRate)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["BonusRate"]">@Html.DisplayNameFor(model => model.BonusRate)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["MinimumDepositAmount"]">@Html.DisplayNameFor(model => model.MinimumDepositAmount)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["MinimumReplenishmentAmount"]">@Html.DisplayNameFor(model => model.MinimumReplenishmentAmount)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["MaximumDepositAmount"]">@Html.DisplayNameFor(model => model.MaximumDepositAmount)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["Currency"]">@Html.DisplayNameFor(model => model.Currency)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["InterestPaymentType"]">@Html.DisplayNameFor(model => model.InterestPaymentType)</a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["DepositTerm"]">@Html.DisplayNameFor(model => model.DepositTerm)</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BenefitsDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnualRate)%
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BonusRate)%
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinimumDepositAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinimumReplenishmentAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaximumDepositAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Currency.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InterestPaymentType.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DepositTerm.Name)
+                </td>
+                <td>
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (item.Deposits.Count == 0)
+                    {
+                        <a class="btn btn-dark" asp-action="Update" asp-route-id="@item.Id">Edit</a>
+                        <a class="btn btn-dark" asp-action="ConfirmDelete" asp-route-id="@item.Id"> Delete </a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<form asp-action="Index" method="get">
+    <div class="form-row">
+        <div class="col">
+            <label class="control-label opacity-80 font-weight-bold">Select Column</label>
+        </div>
+        <div class="col">
+            <select required class="form-control" asp-items='ViewData["ColumnNames"] as  SelectList' name="columnName">
+            </select>
+        </div>
+        <div class="col">
+            <label class="control-label opacity-80 font-weight-bold">Filter</label>
+        </div>
+        <div class="col">
+            <input class="form-control border-info" name="searchString" value="@ViewData["SelectedValue"]" />
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="col">
+            <button type="submit" class="btn btn-secondary">
+                Search
+            </button>
+        </div>
+        <div class="col">
+            <a asp-action="Index" class="btn btn-secondary">
+                Clear Filter
+            </a>
+        </div>
+    </div>
+</form>
+<hr />
+<div align="right" class="col">
+    <a class="btn btn-secondary" asp-action="Create">Add New Deposit Type</a>
+</div>
+

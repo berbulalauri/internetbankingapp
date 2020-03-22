@@ -1,0 +1,84 @@
+﻿@model BBS.Models.Models.DepositType
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Deposit type details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.BenefitsDescription)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.BenefitsDescription)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.AnnualRate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.AnnualRate)%
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.BonusRate)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.BonusRate)%
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MinimumDepositAmount)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MinimumDepositAmount)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MinimumReplenishmentAmount)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MinimumReplenishmentAmount)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.MaximumDepositAmount)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.MaximumDepositAmount)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Currency)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Currency.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.InterestPaymentType)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.InterestPaymentType.Name)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.DepositTerm)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.DepositTerm.Name)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Update" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,81 @@
+﻿@model BBS.Web.Models.UpdateRequestViewModel
+
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="d-flex justify-content-center opacity-90 text-muted mt-4">Card request №@Model.CardRequest.Id</h1>
+
+
+    <div class="row">
+        <div class="col-sm-12" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+            De luxe Salary Card
+        </div>
+    </div>
+
+    <table style="width:50%">
+        <tr>
+            <th>Request Date</th>
+            <td>@Model.CardRequest.CreatedAt.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <th>Full Name:</th>
+            <td>@Model.CardRequest.User.FirstName @Model.CardRequest.User.LatsName</td>
+        </tr>
+        <tr>
+            <th>Company Name:</th>
+            <td>@Model.CardRequest.CompanyName</td>
+        </tr>
+        <tr>
+            <th>City</th>
+            <td>@Model.City.Name</td>
+        </tr>
+
+        <tr>
+            <th>Company Address:</th>
+            <td>@Model.CardRequest.CompanyAddress</td>
+        </tr>
+
+        <tr>
+            <th>Phone:</th>
+            <td>@Model.CardRequest.CompanyPhone</td>
+        </tr>
+
+    </table>
+    <h3></h3>
+    <h4>status information</h4>
+    @foreach (var item in Model.CardRequestHistories)
+    {
+        <h4>@item.CreatedAt.ToShortDateString() @item.RequestStatus @item.Comment</h4>
+    }
+    <h1></h1>
+    <input type="text" value="reason" asp-for="CardRequestHistory.Comment" class="form-control" />
+    <h1></h1>
+
+
+    <div class="form-group row">
+        <div style="margin-left:3%;">
+            <a id="card-accept-btn" asp-action="Accept" asp-controller="CardRequest" asp-route-id="@Model.CardRequest.Id" class="btn btn-dark mr-2 ml-2">Accept</a>
+        </div>
+
+        <div style="margin-left:5%;">
+            <a id="card-decline-btn" asp-action="Decline" asp-controller="CardRequest" asp-route-id="@Model.CardRequest.Id" class="btn btn-dark mr-2 ml-2">Decline</a>
+        </div>
+
+        <div style="margin-left:6%;">
+            <a id="card-decline-btn" asp-action="Index"  class="btn btn-dark mr-2 ml-2">Go Back</a>
+        </div>
+    </div>
+
+</body>

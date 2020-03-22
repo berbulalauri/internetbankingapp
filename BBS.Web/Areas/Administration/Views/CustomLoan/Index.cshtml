@@ -1,0 +1,170 @@
+﻿@using BBS.Web.Areas.Administration.Helpers
+@model BBS.Web.Areas.Administration.Models.CustomLoanViewModel
+@{
+    ViewData["Title"] = "Custom Loans";
+}
+
+@{ var customLoansOnReview = ViewData["CustomLoansOnReview"] as IEnumerable<BBS.Models.Models.LoanRequest>;
+    var acceptedCustomLoans = ViewData["AcceptedCustomLoans"] as IEnumerable<BBS.Models.Models.LoanRequest>;
+    var rejectedCustomLoans = ViewData["RejectedCustomLoans"] as IEnumerable<BBS.Models.Models.LoanRequest>;}
+
+<h1 class="d-flex justify-content-center opacity-90 text-muted mt-4">Custom Loans</h1>
+<h4>On review</h4>
+@if (TempData["Comment"] != null)
+{
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">ERROR ALERT!</h4>
+    <hr>
+    <p>@TempData["Comment"]</p>
+</div>
+}
+<div class="row">
+    @foreach (var item in customLoansOnReview)
+    {
+        <div class="col-lg-6">
+            <div class="loan-box">
+                <div class="detail-col">
+                    <div class="text-col text-grey">
+                        <p>Loan name</p>
+                        <p>Full name</p>
+                        <p>Currency</p>
+                        <p>Term</p>
+                        <p>Interest rate</p>
+                        <p>Loan sum</p>
+                        <p>Passport ID</p>
+                        <p>Mobile number</p>
+                        <p>Email</p>
+                        <p>Date of request</p>
+                        <p>Employment</p>
+                        <p>Date of employment</p>
+                        <p>Office phone number</p>
+                    </div>
+                    <div class="text-col">
+                        <p>@item.LoanType.Name &nbsp;</p>
+                        <p>@FormatingHelper.FormatName(item.User.FirstName, item.User.LatsName) &nbsp;</p>
+                        <p>@item.LoanType.Currency.Name &nbsp;</p>
+                        <p>@item.Term &nbsp;</p>
+                        <p>@FormatingHelper.FormatRate(item.LoanType.InterestRate) &nbsp;</p>
+                        <p>@FormatingHelper.FormatLoanSum(item.LoanSum, item.LoanType.Currency.Name) &nbsp;</p>
+                        <p>@item.User.PassportId &nbsp;</p>
+                        <p>@item.User.PhoneNumber &nbsp;</p>
+                        <p>@item.User.Email &nbsp;</p>
+                        <p>@FormatingHelper.FormatDate(item.DateOfRequest)</p>
+                        <p>@item.Employment.EmploymentType.Name &nbsp;</p>
+                        <p>@FormatingHelper.FormatDate(item.Employment.DateOfEmployment) &nbsp;</p>
+                        <p>@item.Employment.OfficePhoneNumber &nbsp;</p>
+                    </div>
+                </div>
+                <form asp-action="DeclineRequest">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Comment" class="control-label"></label>
+                        <input asp-for="Comment" class="form-control" />
+                        <span asp-validation-for="Comment" class="text-danger"></span>
+                    </div>
+                    <div class="text-col">
+                        <input type="submit" class="btn btn-success inline-button" name="accept" asp-action="AcceptRequest" asp-route-id="@item.Id" value="ACCEPT" />
+                    </div>
+                    <div class="text-col">
+                        <input type="submit" class="btn btn-danger inline-button" name="decline" asp-action="DeclineRequest" asp-route-id="@item.Id" value="DECLINE" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    }
+</div>
+<br />
+
+<h4 style="color:red">Declined</h4>
+<div class="row">
+
+    @foreach (var item in rejectedCustomLoans)
+    {
+        <div class="col-lg-6">
+            <div class="loan-box" style="border-color:red">
+                <div class="detail-col">
+                    <div class="text-col text-grey">
+                        <p>Loan name</p>
+                        <p>Full name</p>
+                        <p>Currency</p>
+                        <p>Term</p>
+                        <p>Interest rate</p>
+                        <p>Loan sum</p>
+                        <p>Passport ID</p>
+                        <p>Mobile number</p>
+                        <p>Email</p>
+                        <p>Date of request</p>
+                        <p>Employment</p>
+                        <p>Date of employment</p>
+                        <p>Office phone number</p>
+                        <p>Comment</p>
+                    </div>
+                    <div class="text-col">
+                        <p>@item.LoanType.Name &nbsp;</p>
+                        <p>@FormatingHelper.FormatName(item.User.FirstName, item.User.LatsName) &nbsp;</p>
+                        <p>@item.LoanType.Currency.Name &nbsp;</p>
+                        <p>@item.Term &nbsp;</p>
+                        <p>@FormatingHelper.FormatRate(item.LoanType.InterestRate) &nbsp;</p>
+                        <p>@FormatingHelper.FormatLoanSum(item.LoanSum, item.LoanType.Currency.Name) &nbsp;</p>
+                        <p>@item.User.PassportId &nbsp;</p>
+                        <p>@item.User.PhoneNumber &nbsp;</p>
+                        <p>@item.User.Email &nbsp;</p>
+                        <p>@FormatingHelper.FormatDate(item.DateOfRequest)</p>
+                        <p>@item.Employment.EmploymentType.Name &nbsp;</p>
+                        <p>@FormatingHelper.FormatDate(item.Employment.DateOfEmployment) &nbsp;</p>
+                        <p>@item.Employment.OfficePhoneNumber &nbsp;</p>
+                        <p>@item.Comments &nbsp;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<br />
+<h4 style="color:green">Accepted</h4>
+<div class="row">
+
+    @foreach (var item in acceptedCustomLoans)
+    {
+        <div class="col-lg-6">
+            <div class="loan-box" style="border-color:green">
+                <div class="detail-col">
+                    <div class="text-col text-grey">
+                        <p>Loan name</p>
+                        <p>Full name</p>
+                        <p>Currency</p>
+                        <p>Term</p>
+                        <p>Interest rate</p>
+                        <p>Loan sum</p>
+                        <p>Passport ID</p>
+                        <p>Mobile number</p>
+                        <p>Email</p>
+                        <p>Date of request</p>
+                        <p>Employment</p>
+                        <p>Date of employment</p>
+                        <p>Office phone number</p>
+                    </div>
+                    <div class="text-col">
+                        <p>@item.LoanType.Name &nbsp;</p>
+                        <p>@FormatingHelper.FormatName(item.User.FirstName, item.User.LatsName) &nbsp;</p>
+                        <p>@item.LoanType.Currency.Name &nbsp;</p>
+                        <p>@item.Term &nbsp;</p>
+                        <p>@FormatingHelper.FormatRate(item.LoanType.InterestRate) &nbsp;</p>
+                        <p>@FormatingHelper.FormatLoanSum(item.LoanSum, item.LoanType.Currency.Name) &nbsp;</p>
+                        <p>@item.User.PassportId &nbsp;</p>
+                        <p>@item.User.PhoneNumber &nbsp;</p>
+                        <p>@item.User.Email &nbsp;</p>
+                        <p>@FormatingHelper.FormatDate(item.DateOfRequest)</p>
+                        <p>@item.Employment.EmploymentType.Name &nbsp;</p>
+                        <p>@FormatingHelper.FormatDate(item.Employment.DateOfEmployment) &nbsp;</p>
+                        <p>@item.Employment.OfficePhoneNumber &nbsp;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

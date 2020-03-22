@@ -1,0 +1,77 @@
+﻿@model BBS.Web.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Log In";
+}
+
+<div class="d-flex flex-column">
+    <div class="row h-100">
+        <div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+            <div class="d-table-cell align-middle">
+                <div class="text-center mt-4">
+                    <h1>Academy Online Bank</h1>
+                    <p class="lead">Sign in to your account</p>
+                </div>
+
+                <div class="card auth-card">
+                    <div class="card-body">
+                        <div class="m-sm-4">
+                            <div class="text-center">
+                                <img class="img-fluid rounded-circle" src="~/images/login-profile.svg" width="132" height="132" alt="user profile logo" />
+                            </div>
+                            <form method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <div class="mb-2 mt-3">
+                                        <select class="custom-select" asp-for="Identifier" id="logInForm">
+                                            <option value="Email">With Email</option>
+                                            <option value="PhoneNumber">With Phone Number</option>
+                                        </select>
+                                    </div>
+                                    <input type="email" class="form-control form-control-lg" asp-for="PhoneOrEmail" id="emailOrPhone" />
+                                    <span asp-validation-for="PhoneOrEmail" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password"></label>
+                                    <input type="password" class="form-control form-control-lg" asp-for="Password" />
+                                    <small>
+                                        <a asp-action="ForgotPassword">Forget your password?</a>
+                                    </small>
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="text-center mt-3">
+                                    <input type="submit" class="btn btn-primary" value="Sign In" name="Sign In button" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+
+<script>
+    $(document).ready(function () {
+    $("#logInForm").change(function () {
+        changeTextInputType();
+    });
+});
+
+function changeTextInputType() {
+    var y = document.getElementById(id = "emailOrPhone");
+  
+    if ($("#logInForm").val() === "Email")
+    {
+        y.type = "email";
+    }
+    else {
+        y.type = "tel";
+    }
+}
+
+</script>
+
+}

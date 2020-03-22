@@ -1,0 +1,145 @@
+﻿@using BBS.Models.ApiModels
+@using BBS.Web.Helpers
+@using BBS.Web.Constants
+
+@model TripTicketViewModel
+@{
+    ViewData["Title"] = "Confirm Bus Ticket";
+}
+
+<h1 class="text-center text-muted mt-2 mb-2">Confirm BusTicket</h1>
+
+<div class="card content-card p-2">
+    <div class="col-6 col-md-6 col-sm-6">
+        <div class="row">
+            <div class="col-6 col-md-6 col-sm-6">
+                <p class="mb-1">From: <span class="text-muted">@Model.DestinationFrom</span></p>
+            </div>
+            <div class="col-6 col-md-6 col-sm-6 text-left">
+                <p class="mb-1">To: <span class="text-muted">@Model.DestinationTo</span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 col-md-6 col-sm-6">
+                <p class="mb-1">Departure: <span class="text-muted">@Model.Departure</span></p>
+            </div>
+            <div class="col-6 col-md-6 col-sm-6 text-left">
+                <p class="mb-1">Arrives: <span class="text-muted">@Model.Departure</span></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 col-md-4 col-sm-4">
+                <p class="mb-1">Duration: <span class="text-muted">@ConvertMinutesToHourHelper.MinutesToHour(Model.TotalMinutes).TotalHours Hour</span></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="content-card">
+    <form method="post">
+        <div class="row">
+            <div class="col-6 col-md-6 col-sm-6 p-3">
+                @for (int i = 0; i < ViewBag.SeatNumbers; i++)
+                {
+                    <table class="table table-responsive mb-2">
+                        <tr>
+                            <td>Passanger @(i + 1)</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Passanger Name</td>
+                            <td><input asp-for="PassangerName" class="form-control" /></td>
+                        </tr>
+                        <tr>
+                            <td>Seat Number</td>
+                            <td>@ViewBag.Seat[i]</td>
+                        </tr>
+                        <tr>
+                            <td>Ticket Price</td>
+                            <td>@Model.TicketPrice ₾</td>
+                        </tr>
+                        <tr hidden>
+                            <td><input asp-for="SeatNumber" value="@ViewBag.Seat[i]" /></td>
+                        </tr>
+                    </table>
+
+                }
+            </div>
+
+            <div class="col-6 col-md-6 col-sm-6 p-2">
+                <h3>From Card</h3>
+                <div class="form-group">
+                    <select asp-for="SenderCardId" class="custom-select col-sm-4" asp-items="ViewBag.CardList"></select>
+                </div>
+                <div class="form-group mt-2">
+                    <label asp-for="PersonalAccountId" class="control-label"></label>
+                    <input asp-for="PersonalAccountId" class="form-control" />
+                    <span asp-validation-for="PersonalAccountId" class="text-danger"></span>
+                </div>
+                <div class="row mt-4">
+                    <p>Ticket Price: </p>
+                    <p class="text-muted">@(Model.TicketPrice * ViewBag.SeatNumbers)</p>
+                </div>
+                <div class="row mt-2">
+                    <p>Commision: </p>
+                    <p class="text-muted">@(Math.Round(Model.TicketPrice * Commision.commision, 2)) </p>
+                </div>
+                <div class="row mt-2">
+                    <p>Total Price: </p>
+                    <p class="text-muted">@(Math.Round((Model.TicketPrice * ViewBag.SeatNumbers) + (Model.TicketPrice * Commision.commision), 2))</p>
+                </div>
+
+                <div hidden>
+                    <input type="hidden" asp-for="Amount" value="@(Decimal.Round((Model.TicketPrice * ViewBag.SeatNumbers) + (Model.TicketPrice * Commision.commision)))" />
+                </div>
+
+
+
+                <input asp-for="Date" type="hidden" value="@DateTime.Now" />
+                <input name="serviceTypeId" type="hidden" value="@ViewBag.serviceTypeId">
+                <input name="serviceName" type="hidden" value="@ViewBag.serviceName">
+                <input type="hidden" asp-for="ServiceId" class="form-control" value="@ViewBag.ServiceId" />
+                <input asp-for="ReceiverAccountId" type="hidden" value="@ViewData["ReceiverAccountId"]" />
+
+                <div class="row">
+                    <a class="btn btn-dark ml-2" asp-controller="Payment" asp-action="BookTicket">Back</a>
+                    <input type="submit" class="btn btn-secondary ml-2" value="Submit" />
+                </div>
+            </div>
+        </div>
+
+
+        <div hidden>
+            <div class="form-group">
+                <label asp-for="DestinationFrom"></label>
+                <input asp-for="DestinationFrom" value="@Model.DestinationFrom" />
+            </div>
+            <div class="form-group">
+                <label asp-for="DestinationTo"></label>
+                <input asp-for="DestinationTo" value="@Model.DestinationTo" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Departure"></label>
+                <input asp-for="Departure" value="@Model.Departure" />
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalMinutes"></label>
+                <input asp-for="TotalMinutes" value="@Model.TotalMinutes" />
+            </div>
+            <div class="form-group">
+                <label asp-for="TicketPrice"></label>
+                <input asp-for="TicketPrice" value="@Model.TicketPrice" />
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalSeats"></label>
+                <input asp-for="TotalSeats" value="@Model.TotalSeats" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SeatNumbers"></label>
+                <input asp-for="SeatNumbers" value="@Model.SeatNumbers" />
+            </div>
+        </div>
+    </form>
+</div>
+

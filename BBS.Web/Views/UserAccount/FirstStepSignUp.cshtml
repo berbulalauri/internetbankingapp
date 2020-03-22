@@ -1,0 +1,67 @@
+﻿@model BBS.Web.Models.SignUpViewModel
+
+@{
+    ViewData["Title"] = "FirstStepSignUp";
+}
+
+<div class="row">
+    <div style="line-height: 5px; margin-top:3%; padding-left:15px;">
+        <p style="font-size:large;">Academy bank is the largest commercial bank in Georgia, in terms of the number of clients,</p>
+        <p style="font-size:large;">assets value, loan portfolio and taxes paid to the national budget.</p>
+    </div>
+    <div class="col-sm-6" style="margin-top:2%;">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.049143706828!2d44.70786511573412!3d41.71945838330539!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40447377897e79d7%3A0x4e4ac031e18af6e!2zMTAg4YOQ4YOc4YOQIOGDnuGDneGDmuGDmOGDouGDmeGDneGDleGDoeGDmeGDkOGDmOGDkOGDoSDhg6Xhg6Phg6nhg5AsIOGDl-GDkeGDmOGDmuGDmOGDoeGDmA!5e0!3m2!1ska!2sge!4v1579711167072!5m2!1ska!2sge" frameborder="0" style="border:0; width:100%; height:100%;" allowfullscreen=""></iframe>
+    </div>
+
+    <div>
+        <form asp-action="FirstStepSignUp">
+            <div style="margin-top:5%; margin-top:9%; margin-bottom:6.5%;">
+                <h3>Sign Up</h3>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="FirstName" style="font-size: large;">First Name</label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="LatsName" style="font-size: large;" class="control-label">Last Name</label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <input asp-for="LatsName" class="form-control" />
+                    <span asp-validation-for="LatsName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="Phone" style="font-size: large;" class="control-label">Phone number</label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="Email" style="font-size: large;" class="control-label">Email</label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div style="margin-left:4%;">
+                    <a style="padding-left:50px; padding-right:50px;" class="btn btn-secondary" asp-action="Index" asp-controller="Home">Return</a>
+                </div>
+                <div style="margin-left:10%;">
+                    <input type="submit" value="Continue" class="btn btn-primary" style="padding-left:44px; padding-right:44px;" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+﻿@using BBS.Models.Models
+@model BBS.Web.Models.CardRequestViewModel
+
+@{
+    ViewData["Title"] = "Request Salary Card";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h5 class="ml-5 text-center">Request a Salary Card</h5>
+
+    </div>
+
+    <div class="col-sm-12">
+        <h6 id="dk-alert" style="padding: 15px 5px;background: #28a745; color:#155724; text-align:left; display: none; border-radius: 3px;">Request sent successfully</h6>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12" style="        border: 1px solid black;
+        padding: 10px;
+        margin-bottom: 10px;
+">
+        De luxe Salary Card
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form id = "dk-form" asp-action="RequestSalaryCard">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="CompanyName" style="font-size: large;">Company Name</label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <input asp-for="CompanyName" class="form-control" />
+                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="City" class="control-label" style="font-size: large;">City</label>
+                </div>
+                <div class="from-gorup col-sm-6">
+                    <select asp-for="City.Id" class="custom-select">
+                        @foreach (var item in ViewData["Cities"] as List<City>)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <h1></h1>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="CompanyAddress" style="font-size: large;">Address</label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <input asp-for="CompanyAddress" class="form-control" />
+                    <span asp-validation-for="CompanyAddress" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <label asp-for="CompanyPhone" style="font-size: large;">Phone</label>
+                </div>
+                <div class="form-group col-sm-6">
+                    <input asp-for="CompanyPhone" class="form-control" />
+                    <span asp-validation-for="CompanyPhone" class="text-danger"></span>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div style="margin-left:4%;">
+                    <a style="padding-left:50px; padding-right:50px;" class="btn btn-secondary" asp-action="Index">Cancel</a>
+                </div>
+
+                <div style="margin-left:10%;">
+                    <input id="dk-btn" type="submit" value="Submit" class="btn btn-primary" style="padding-left:44px; padding-right:44px;" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+  
+        let alert = document.getElementById("dk-alert");
+        let dkSubmit = document.getElementById("dk-form");
+    
+        function displayAlert() {
+            alert.style.display = "block";
+        }
+
+            dkSubmit.onsubmit = function (e) {
+                displayAlert();
+                e.preventDefault();
+                setTimeout(function() {
+                    dkSubmit.submit();
+                }, 3000);
+            }; 
+
+       
+
+        
+    
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

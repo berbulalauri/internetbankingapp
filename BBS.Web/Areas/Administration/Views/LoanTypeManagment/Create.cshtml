@@ -1,0 +1,111 @@
+﻿@model BBS.Models.Models.LoanType
+@{
+    ViewData["Title"] = "Add New Loan Type";
+}
+
+<h1 class="text-center mt-3 mb-3">Add New Loan Type</h1>
+
+
+<form class="border border-info rounded" asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row p-3">
+        <div class="col-6 col-md-6 col-sm-6 left">
+            <div class="form-group row mb-3">
+                <label asp-for="Name" class="control-label col-sm-4"></label>
+                <input asp-for="Name" class="form-control col-sm-8" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="Description" class="control-label col-sm-4"></label>
+                <textarea asp-for="Description" class="form-control col-sm-8"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="GeneralInformation" class="control-label col-sm-4"></label>
+                <textarea asp-for="GeneralInformation" class="form-control col-sm-8"></textarea>
+                <span asp-validation-for="GeneralInformation" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="MinLoanSum" class="control-label col-sm-4"></label>
+                <input asp-for="MinLoanSum" class="form-control col-sm-8" />
+                <span asp-validation-for="MinLoanSum" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="MaxLoanSum" class="control-label col-sm-4"></label>
+                <input asp-for="MaxLoanSum" class="form-control col-sm-8" />
+                <span asp-validation-for="MaxLoanSum" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="MonthlyFee" class="control-label col-sm-4"></label>
+                <input asp-for="MonthlyFee" class="form-control col-sm-8" />
+                <span asp-validation-for="MonthlyFee" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="CurrencyId" class="control-label col-sm-4"></label>
+                <select asp-for="CurrencyId" class="form-control col-sm-8 custom-select" asp-items="ViewBag.CurrencyId">
+                    <option selected>Select One</option>
+                </select>
+                <span asp-validation-for="CurrencyId" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="col-6 col-md-6 col-sm-6">
+            <div class="form-row mb-3">
+                <label asp-for="InterestRate" class="control-label col-sm-4"></label>
+                <input asp-for="InterestRate" class="form-control col-sm-8" />
+                <span asp-validation-for="InterestRate" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="PaymentForAccidentInsurance" class="control-label col-sm-4"></label>
+                <input asp-for="PaymentForAccidentInsurance" class="form-control col-sm-8" />
+                <span asp-validation-for="PaymentForAccidentInsurance" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="MinTerm" class="control-label col-sm-4"></label>
+                <input asp-for="MinTerm" class="form-control col-sm-8" />
+                <span asp-validation-for="MinTerm" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="MaxTerm" class="control-label col-sm-4"></label>
+                <input asp-for="MaxTerm" class="form-control col-sm-8" />
+                <span asp-validation-for="MaxTerm" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="FeeForInsuranceLoan" class="control-label col-sm-4"></label>
+                <input asp-for="FeeForInsuranceLoan" class="form-control col-sm-8" />
+                <span asp-validation-for="FeeForInsuranceLoan" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="FreeForServicesUponReciptCash" class="control-label col-sm-4"></label>
+                <input asp-for="FreeForServicesUponReciptCash" class="form-control col-sm-8" />
+                <span asp-validation-for="FreeForServicesUponReciptCash" class="text-danger"></span>
+            </div>
+
+            <div class="form-row mb-3">
+                <label asp-for="LoanSummary" class="control-label col-sm-4"></label>
+                <textarea asp-for="LoanSummary" class="form-control col-sm-8"></textarea>
+                <span asp-validation-for="LoanSummary" class="text-danger"></span>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-dark ml-auto mb-3" asp-controller="LoanTypeManagment" asp-action="Index">Cancel</a>
+        <input type="submit" value="Submit" class="btn btn-secondary ml-2 mr-4 mb-3"/>
+    </div>
+</form>
+
+
+

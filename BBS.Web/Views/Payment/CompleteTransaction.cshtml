@@ -1,0 +1,119 @@
+﻿<link rel="stylesheet" href="~/css/paymentCompilationStyles.css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" />
+@{
+    var fullAmount = Convert.ToDecimal(ViewData["Amount"]);
+    string partialAmountToInt = "00";
+    if (fullAmount % 1 != 0)
+    {
+        fullAmount = (int)Math.Truncate(fullAmount);
+        string s = @ViewData["Amount"].ToString();
+        string[] parts = s.Split('.');
+        partialAmountToInt = parts[1];
+    } else
+    {
+        fullAmount = (int)Math.Truncate(fullAmount);
+    }
+}
+<br/>
+<div class="bg">
+    <div class="card">
+        <div class="animation-ctn">
+            <div class="icon icon--order-success svg">
+                <svg xmlns="http://www.w3.org/2000/svg" width="154px" height="154px">
+                    <g fill="none" stroke="#22AE73" stroke-width="2">
+                        <circle cx="77" cy="77" r="72" style="stroke-dasharray:480px, 480px; stroke-dashoffset: 960px;"></circle>
+                        <circle id="colored" fill="#22AE73" cx="77" cy="77" r="72" style="stroke-dasharray:480px, 480px; stroke-dashoffset: 960px;"></circle>
+                        <polyline class="st0" stroke="#fff" stroke-width="10" points="43.5,77.8 63.7,97.9 112.2,49.4 " style="stroke-dasharray:100px, 100px; stroke-dashoffset: 200px;" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+        <h1 class="card__msg">Payment Successful!</h1>
+        <h2 class="card__submsg">you have successfully paid for <b>@ViewData["transactioType"]</b></h2>
+        <div class="card__body">
+            <img style="position:relative; top:-16px; left:0px;" src="https://partycity6.scene7.com/is/image/PartyCity/_pdp_sq_?$_80x80_$&$product=PartyCity/547928"
+                 width="80" height="80" class="card__avatar">
+            <div class="card__recipient-info">
+                <p class="card__recipient">@ViewData["UserName"]</p>
+                <p class="card__email">@ViewData["UserEmail"]</p>
+            </div>
+            <p style="text-align:left;">
+                Payment Type:
+                <span style="float:right;">
+                    @ViewData["transactioType"]
+                </span>
+            </p>
+            <p style="text-align:left;">
+                Bank:
+                <span style="float:right;">
+                    TBC Bank
+                </span>
+            </p>
+            <p style="text-align:left;">
+                Mobile:
+                <span style="float:right;">
+                    @ViewData["Mobile"]
+                </span>
+            </p>
+            <p style="text-align:left;">
+                Email:
+                <span style="float:right;">
+                    @ViewData["UserEmail"]
+                </span>
+            </p>
+            <p style="text-align:left;">
+                Recipient Account Id:
+                <span style="float:right;">
+                    @ViewData["RecipientAccountId"]
+                </span>
+            </p>
+            <p style="text-align:left; font-size:21px;">
+                Amount Paid:
+                <span style="float:right; font-size:15px;">
+                    ₾ @ViewData["Amount"]
+                </span>
+            </p>
+
+            <h1 class="card__price"><span>₾</span>@fullAmount<span>.@partialAmountToInt</span></h1>
+
+            <p class="card__method">Payment method</p>
+            <div class="card__payment">
+                <img src="https://seeklogo.com/images/V/VISA-logo-F3440F512B-seeklogo.com.png" class="card__credit-card">
+                <div class="card__card-details">
+                    <p class="card__card-type">Credit / debit card</p>
+                    <p class="card__card-number">Visa ending in @ViewData["CurrentPayingCartNumber"]</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card__tags">
+            <span class="card__tag">completed</span>
+            <span class="card__tag">#@ViewData["RecipientAccountId"]</span>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="button_centering_class">
+    <a class="btn btn-primary btn-sm paddingforbutton" style="display: block; margin: 0 auto;" href="/" role="button">Continue to homepage</a>
+</div>
+<style>
+.button_centering_class{
+    text-align: center;
+    margin-top:27px;
+    margin-bottom:27px;
+}
+a.btn.btn-primary.btn-sm {
+    align-items: center;
+    background-color: green;
+    width: 230px;
+    height: 40px;
+    padding: 0;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 8px;
+}
+</style>

@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+        <table class="table table-bordered table-responsive">
+            <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Annual</th>
+                    <th>Currency</th>
+                    <th>Interest Payment</th>
+                    <th>Min Amount</th>
+                    <th>Max Amount</th>
+                    <th>Replenishment</th>
+                    <th>Benefit</th>
+                </tr>
+            </thead>
+            <tr>
+                <td><input class="border-none" /></td>
+                <td><input class="border-none" /></td>
+                <td><input class="border-none" /></td>
+                <td><input class="border-none" /></td>
+                <td><input class="border-none" /></td>
+                <td><input class="border-none" /></td>
+                <td><input class="border-none" /></td>
+                <td><input class="border-none" /></td>
+                <td><a asp-action="" asp-route-id="">Update</a></td>
+            </tr>
+        </table>
+        <div class="form-group  text-right">
+            <input type="submit" value="Save Changes" class="btn btn-primary" />
+        </div>
+</body>
+</html>

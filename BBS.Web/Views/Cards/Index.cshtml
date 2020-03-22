@@ -1,0 +1,167 @@
+﻿@using BBS.Models.Models
+@model List<Card>
+@{
+	ViewData["Title"] = "Cards";
+	var transactions = ViewData["transact"] as List<Transactions>;
+	int? id = ViewData["userId"] as int?;
+	bool ascend = (ViewData["orderInfo"] as Tuple<string, bool>).Item2;
+	string orderBy = (ViewData["orderInfo"] as Tuple<string, bool>).Item1;
+	bool showRequestInformation = @ViewBag.ShowInfo;
+	CardRequest cardRequest = ViewData["cardRequest"] as CardRequest;
+}
+
+@*Start Account and Cards *@
+<h1 class="text-center text-muted mt-2 mb-4">Accounts And Cards</h1>
+@foreach (var item in Model)
+{
+	if (item.Account.Balance < 0)
+	{
+		<div class="alert alert-danger" role="alert">
+			Balance is <b>NEGATIVE</b>—check it out!
+		</div>
+	}
+	<div class="row border mr-0 ml-0 rounded border-info p-3 mt-3 salary-card">
+		<div class="col-6">
+			<h3 class="salary-card-name">@item.Name</h3>
+			<table>
+				<tbody>
+					<tr>
+						<td class="text-muted">Card Number</td>
+						<td class="pl-3">@item.Number</td>
+					</tr>
+					<tr>
+						<td class="text-muted">Account Balance</td>
+						<td class="pl-3">@item.Account.Balance @item.Account.Currency.Name</td>
+					</tr>
+				</tbody>
+
+			</table>
+		</div>
+	</div>
+}
+
+@if (showRequestInformation)
+{
+
+<div class="row border mr-0 ml-0 rounded border-info p-3 mt-3 salary-card" id="dk-salary">
+	<div class="col-6">
+		<h3 class="salary-card-name">Salary Card Request</h3>
+		<table>
+			<tbody>
+				<tr>
+					<td class="text-muted">You have requested a salary card</td>
+					<td class="pl-3"></td>
+				</tr>
+				<tr>
+					<td class="text-muted">Request status</td>
+					<td class="pl-3">@cardRequest.CardRequestStatus</td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+</div>
+}
+<h1></h1>
+<div>
+	<a id="card-request-btn" asp-action="RequestSalaryCard" asp-controller="Cards" class="btn btn-dark mr-2 ml-2">Request a salary card</a>
+</div>
+
+
+<h1 class="text-center text-muted mt-2 mb-4">Recent Operations</h1>
+<table class="table table-bordered">
+	<thead>
+		<tr class="thead-light text-center">
+			<th scope="col">
+				@await Html.PartialAsync("_SortingPartial",new Tuple<string, string, string>("Operation Date","Date", null) ,ViewData)
+			</th>
+			<th scope="col">
+				@await Html.PartialAsync("_SortingPartial",new Tuple<string, string, string>("Operation Description","Service", null) ,ViewData)
+			</th>
+			<th scope="col">
+				@await Html.PartialAsync("_SortingPartial",new Tuple<string, string, string>("Amount", null, null) ,ViewData)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in transactions)
+		{
+
+			if (item.SenderAccount.UserId == id)
+			{
+
+				<tr class="text-center">
+					<td>@item.Date.ToShortDateString()</td>
+					<td>
+						<p class="mb-0">@item.Service.Name</p>
+						<p class="text-muted mb-0">@item.SenderAccount.Name ***** @item.SenderCard.Number.Substring(item.SenderCard.Number.Length - 4, 4)</p>
+					</td>
+					<td>-@item.Amount @item.SenderAccount.Currency.Name</td>
+				</tr>
+			}
+			else
+			{
+				<tr class="text-center">
+					<td>@item.Date.ToShortDateString()</td>
+					<td>
+						<p class="mb-0">@item.Service.Name: @item.PersonalAccountId @item.Description</p>
+						<p class="text-muted mb-0">@item.ReceiverAccount.Name</p>
+					</td>
+					<td>@item.Amount @item.SenderAccount.Currency.Name</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
+@*End Account and Cards *@
+<script>
+    window.onload = function () {
+
+
+
+
+    let cardBtn = document.getElementById("card-request-btn"); //get button
+    let salaryCards = document.getElementsByClassName("salary-card-name"); //get cards
+    let salaryStr = "De Luxe Salary Card"; 
+	let salaryCardRequest = "Salary Card Request";
+    let dkSalary = document.getElementById("dk-salary");
+    let dkCard = document.getElementById("dk-card");
+    let cardsArray = []; // array for card salary names
+    let isActiveDeluxe = true;
+    let isActiveRequest = true;
+        for (let i = 0; i < salaryCards.length; i++) {
+            if (salaryCards[i].innerHTML.toUpperCase() === salaryStr.toUpperCase() ||
+                salaryCards[i].innerHTML.toUpperCase() === salaryCardRequest.toUpperCase()) {
+				cardsArray.push(salaryCards[i].innerHTML.toUpperCase());
+            }
+		}
+        let cardsResultDeluxe = cardsArray.indexOf(salaryStr.toUpperCase()); // check if exists salary card
+        let cardResultRequest = cardsArray.indexOf(salaryCardRequest.toUpperCase());
+
+    if (cardsResultDeluxe == -1) { //hide or show card button depending on cardresults
+        isActiveDeluxe = false;
+        } 
+
+        if (cardResultRequest == -1) {
+            isActiveRequest = false;
+        }
+
+        if (isActiveDeluxe === false && isActiveRequest === false) {
+            cardBtn.style.display = "inline-block";
+        }
+
+        if (isActiveRequest === true) {
+            dkSalary.style.display = "block";
+            //dkCard.style.display = "none";
+			cardBtn.style.display = " none";
+        }
+
+        if (isActiveDeluxe === true) {
+			 //dkCard.style.display = "block";
+            dkSalary.style.display = "none";
+            cardBtn.style.display = " none";
+        }
+
+    }
+
+</script>

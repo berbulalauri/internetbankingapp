@@ -1,0 +1,124 @@
+﻿@using BBS.Models.ApiModels
+@model Trip
+@{
+    ViewData["Title"] = "Select trip";
+}
+
+<h1 class="text-center text-muted">Select trip</h1>
+
+
+<div class="container content-card" style="margin-top:1%; padding-bottom:1%;">
+    <div class="col-sm-12">
+        <div style="margin-top:1%;">
+            @if (Model.FreeSeatCount == 1)
+            {
+                @if (((ViewData["trips"] as List<Trip>).Count) == 1)
+                {
+                    <span class="col-sm-10">For @Model.Departure.ToString("dd.MM.yyyy") available @((ViewData["trips"] as List<Trip>).Count) trip for @Model.FreeSeatCount passenger:</span>
+                }
+                else
+                {
+                    <span class="col-sm-10">For @Model.Departure.ToString("dd.MM.yyyy") available @((ViewData["trips"] as List<Trip>).Count) trips for @Model.FreeSeatCount passenger:</span>
+                }
+            }
+            else
+            {
+                @if (((ViewData["trips"] as List<Trip>).Count) == 1)
+                {
+                    <span class="col-sm-10">For @Model.Departure.ToString("dd.MM.yyyy") available @((ViewData["trips"] as List<Trip>).Count) trip for @Model.FreeSeatCount passengers:</span>
+                }
+                else
+                {
+                    <span class="col-sm-10">For @Model.Departure.ToString("dd.MM.yyyy") available @((ViewData["trips"] as List<Trip>).Count) trips for @Model.FreeSeatCount passengers:</span>
+                }
+            }
+        </div>
+
+        <div>
+            <span class="col-sm-10"><strong>From </strong>@Model.DestinationFrom<strong> To </strong>@Model.DestinationTo</span>
+        </div>
+
+
+        <div class="container row" style="margin-top:1%;">
+
+            <div class="col-sm-2">
+                <div>
+                    Departs/Arrives
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div>
+                    Duration
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+                <div>
+                    Bus information
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div>
+                    Sits
+                </div>
+            </div>
+
+            <div class="col-sm-2">
+            </div>
+
+        </div>
+    </div>
+    <div class="container-fluid">
+        @foreach (var item in ViewData["trips"] as List<Trip>)
+        {
+            <div class="container border row" style="margin-top:1%; padding:1%;">
+
+                <div class="col-sm-2">
+                    <div>
+                        @item.Departure.ToString("hh.mm")
+                    </div>
+                    <div>
+                        @item.Departure.AddMinutes(item.TotalMinutes).ToString("hh.mm")
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div>
+                        @item.TotalMinutes minutes
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div>
+                        @item.Bus
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div>
+                        @if (item.FreeSeatCount == 1)
+                        {
+                            <strong>@item.FreeSeatCount free sit</strong>
+                        }
+                        else
+                        {
+                            <strong>@item.FreeSeatCount free sits</strong>
+                        }
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div>
+                        <a class="btn btn-outline-secondary" asp-controller="Payment" asp-action="ChooseBusSeat" asp-route-id="@item.Id">Select sit</a>
+                    </div>
+                    <div class="ml-2">
+                        <a asp-controller="Payment" asp-action="BookTicket" class="btn btn-outline-dark">cancel</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>

@@ -1,0 +1,200 @@
+﻿.container {
+    max-width: 1240px !important;
+}
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    padding-top: 90px;
+    background: #f9fbfd !important;
+}
+
+.custom-navbar {
+    background: #fff !important;
+    border-bottom: 1px solid #e4ebf6;
+    min-height: 80px;
+    box-shadow: 0 .5rem 1rem rgba(20,40,60,.03);
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+/* bus sits styles */
+
+/*.bus {
+    list-style: none;
+}*/
+
+.bus__seat {
+    width: 50px;
+    height: 50px;
+    padding-top: 13.5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.taken-seat {
+    background-color: #6c757d;
+    border: 1px solid #6c757d;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.active-seat {
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.selected-seat {
+    background-color: #dc3545;
+    border: 1px solid #dc3545;
+    border-radius: 50%;
+    color: #fff;
+}
+
+/* bus sits styles End*/
+
+
+/* Auth Styles */
+.auth-card {
+    margin-bottom: 2rem;
+    box-shadow: 0 .5rem 1rem rgba(20,40,60,.03);
+    border: 1px solid #edf2f9;
+    border-radius: .25rem;
+}
+.content-card {
+    background-color: #fff;
+    margin-bottom: 2rem;
+    box-shadow: 0 .5rem 1rem rgba(20,40,60,.03);
+    border: 1px solid #e4ebf6;
+    border-radius: .25rem;
+}
+
+.col-sm-5 {
+    flex: 0 0 41.333333%;
+    max-width: 41.333333%;
+}
+
+/* Auth Styles End*/
+
+.active {
+    color:#00a3e0  !important;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+.profile-img{
+    width: 25px;
+}
+
+.dropdown:hover > .dropdown-menu {
+    display: block;
+    cursor: pointer;
+}
+.dropdown > .dropdown-toggle:active {
+    pointer-events: none;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.border-top {
+  border-top: 1px solid #e5e5e5;
+}
+.border-bottom {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px; /* Vertically center the text there */
+}
+
+#rcorners1 {
+    border-radius: 25px;
+    padding: 20px;
+    width: 200px;
+    height: 150px;
+}
+
+#orderloancancelbutton {
+    margin-left: 5px;
+}
+
+.loan-box {
+    margin: 5px;
+    border: 1px solid black;
+    padding: 15px;
+}
+
+.text-col {
+    width: 49%;
+    padding: 3px;
+    display: inline-block;
+    line-height: 10px;
+}
+
+
+.comment-input {
+    width: 95%;
+    border: 1px solid black;
+    margin-bottom: 15px;
+}
+
+.snowFlake {
+    width: 4%;
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.inline-button {
+    width: 90%;
+    display: block;
+    margin: auto;
+    margin-right: 16%;
+}
+
+.text-grey {
+    color: grey;
+}

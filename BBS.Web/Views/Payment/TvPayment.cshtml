@@ -1,0 +1,44 @@
+﻿@model BBS.Models.Models.Transactions
+@{
+    ViewData["Title"] = "TvPayment";
+}
+
+<h2 class="d-flex justify-content-center opacity-90">Tv Payment</h2>
+
+<div class="row mt-5 d-flex justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="CompleteTransaction" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ServiceId" class="control-label"></label>
+                <select asp-for="ServiceId" class="form-control" asp-items="ViewBag.viewAllService"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SenderCardId" class="control-label">Choose Your Card: </label>
+                <select asp-for="SenderCardId" class="form-control" asp-items="ViewBag.CardList"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PersonalAccountId" class="control-label"></label>
+                <input asp-for="PersonalAccountId" class="form-control" />
+                <span asp-validation-for="PersonalAccountId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <input asp-for="Date" type="hidden" value="@DateTime.Now" />
+            <input name="serviceTypeId" type="hidden" value="@ViewBag.serviceTypeId">
+            <input name="serviceName" type="hidden" value="@ViewBag.serviceName">
+            <div class="form-group d-flex justify-content-sm-between">
+                <a asp-action="Index" asp-controller="Payment" style="opacity:0.9" class="btn btn-secondary text-uppercase font-weight-bold">Cancel</a>
+                <input type="submit" value="Submit" class="btn btn-info text-uppercase font-weight-bold" />
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

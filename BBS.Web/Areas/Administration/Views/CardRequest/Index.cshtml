@@ -1,0 +1,71 @@
+﻿@model IEnumerable<BBS.Models.Models.CardRequest>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="d-flex justify-content-center opacity-90 text-muted mt-4">Custom card requests</h1>
+
+<div class="row">
+    <div class="col-sm-12" style="border: 1px solid black; padding: 10px; margin-bottom: 10px;">
+        De luxe Salary Card
+    </div>
+</div>
+
+<table class="table table-bordered" >
+    <thead class="thead-dark">
+        <tr>
+            <th>
+                Request Date
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Company Address
+            </th>
+            <th>
+                Company Phone
+            </th>
+            <th>
+                Request Status
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @item.CreatedAt.ToShortDateString()
+            </td>
+
+            <td>
+                @item.User.FirstName @item.User.LatsName
+            </td>
+
+            <td>
+                @item.CompanyName
+            </td>
+            <td>
+                @item.CompanyAddress
+            </td>
+            <td>
+                @item.CompanyPhone
+            </td>
+            <td>
+                @item.CardRequestStatus
+            </td>
+
+            <td>
+                <a asp-action="UpdateRequest" asp-route-id="@item.Id">Update</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

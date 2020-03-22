@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BBS.Models.Models.DepositType>
+@{
+    ViewData["Title"] = "Choose Deposit";
+}
+<div class="container">
+    <h2 class="d-flex justify-content-center opacity-90 text-muted mt-4">Choose Deposit</h2>
+    <div class="row mt-5 ml-auto">
+        <div class="col-md-4">
+            <form class="content-card p-3" action="javascript:void(0);">
+                <h4 class="d-flex justify-content-start opacity-90">Filter</h4>
+                <div class="form-group mb-4">
+                    <label class="control-label opacity-80 font-weight-bold">Currency</label>
+                    <select class="form-control custom-select" asp-items="ViewBag.CurrencyId" id="LoanItem">
+                        <option>Any Currency</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Amount" class="control-label opacity-80 font-weight-bold">Amount</label>
+                    <input class="form-control border-info" id="MaxLoanSum" />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="control-label opacity-80 font-weight-bold">Term</label>
+                    <select class="form-control custom-select" asp-items="ViewBag.TermId" id="LoanTerm">
+                        <option>Any Term</option>
+                    </select>
+                </div>
+                <div class="form-group d-flex justify-content-sm-between">
+                    <input id="filter-reset" type="reset" style="opacity:0.9" value="Reset Parameters" class="btn btn-secondary text-uppercase font-weight-bold" />
+                    <input id="submit-filter" type="submit" value="Find" class="btn btn-info text-uppercase font-weight-bold" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-8 " id="deposit-container">
+            @foreach (var item in Model)
+            {
+                <div data-currency="@item.Currency.Name" class="card ml-auto mr-auto mb-3 border-primary opacity-90 border-secondary" style="max-width: 600px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            <div class="c100">
+                                <span>@item.AnnualRate%</span>
+                                <div class="slice">
+                                    <div class="bar"></div>
+                                    <div class="fill"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title text-uppercase">@item.Name</h5>
+                                <table class="table table-sm table-hover table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-muted">Currency</td>
+                                            <td>@item.Currency.Name</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Max Deposit Amount</td>
+                                            <td class="loan-amount">@item.MaximumDepositAmount</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Max Deposit Term</td>
+                                            <td class="max-term">@item.DepositTerm.Name</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-muted">Annual Rate</td>
+                                            <td class="graph-circle">@item.AnnualRate %</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-muted">Bonus rate for openning the deposit in ACADEMYBANK online to first month</td>
+                                            <td>@item.BonusRate %</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="d-flex justify-content-end">
+                                    <a asp-controller="Deposit" asp-action="Open" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm text-uppercase font-weight-bold">Order Deposit</a>&nbsp;
+                                    <a asp-controller="Deposit" asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm text-uppercase font-weight-bold">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+             <script src="~/js/depositFilter.js"></script>
+        }
+    </div>
+</div>

@@ -1,0 +1,146 @@
+﻿@using BBS.Models.Models
+@model BBS.Web.Models.SignUpContinuedViewModel
+
+@{
+    ViewData["Title"] = "SecondStepSignUp";
+}
+
+<div>
+    <div>
+        <h1 style="margin-bottom: 2%; margin-top: 2%;">Please, put your personal data to complete registration</h1>
+    </div>
+    <form asp-action="SecondStepSignUp">
+
+        <div class="form-group" hidden>
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="form-group" hidden>
+            <label asp-for="LatsName" class="control-label"></label>
+            <input asp-for="LatsName" class="form-control" />
+            <span asp-validation-for="LatsName" class="text-danger"></span>
+        </div>
+        <div class="form-group" hidden>
+            <label asp-for="Phone" class="control-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+        <div class="form-group" hidden>
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label style="font-size: large;">Sex</label>
+            </div>
+            <div class="form-group col-sm-6">
+                <div class="row" style="padding-left:4% !important;">
+                    <div class="col-sm-3">
+                        <label class="form-check-label">
+                            <input type="radio" value="true" class="form-check-input" asp-for="Sex" />Male
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="form-check-label">
+                            <input type="radio" value="false" class="form-check-input" asp-for="Sex" />Female
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="PassportId" class="control-label" style="font-size: large;">Passport ID</label>
+            </div>
+            <div class="form-group col-sm-3">
+                <input asp-for="PassportId" class="form-control" />
+                <span asp-validation-for="PassportId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="CityId" class="control-label" style="font-size: large;">City</label>
+            </div>
+            <div class="col-sm-3" style="margin-bottom:1%;">
+                <select asp-for="CityId" class="form-control">
+                    @foreach (var item in ViewData["Cities"] as List<City>)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CityId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="Address" class="control-label" style="font-size: large;">Address</label>
+            </div>
+            <div class="form-group col-sm-3">
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="QuestionId" class="control-label" style="font-size: large;" style="font-size: large;">Select question</label>
+            </div>
+
+            <div class="col-sm-3" style="margin-bottom:1%;">
+                <select asp-for="QuestionId" class="form-control">
+                    @foreach (var item in ViewData["Questions"] as List<Question>)
+                    {
+                        <option value="@item.Id">@item.Content</option>
+                    }
+                </select>
+                <span asp-validation-for="QuestionId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="Answer" class="control-label" style="font-size: large;">Answer</label>
+            </div>
+            <div class="form-group col-sm-3">
+                <input asp-for="Answer" class="form-control" />
+                <span asp-validation-for="Answer" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <label asp-for="Password" class="control-label" style="font-size: large;">Password</label>
+            </div>
+            <div class="form-group col-sm-3">
+                <input asp-for="Password" class="form-control" data-toggle="password" id="passwordInput" />
+                <input type="checkbox" onclick="myFunction()"> Show Password
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div>
+            <p style="font-size:large;">By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy.</p>
+        </div>
+
+        <div class="form-group row">
+            <div style="margin-left:25%;">
+                <a style="padding-left:50px; padding-right:50px;" class="btn btn-secondary" asp-action="FirstStepSignUp" asp-controller="UserAccount">Return</a>
+            </div>
+            <div style="margin-left:1%;">
+                <input type="submit" value="Sign Up" class="btn btn-primary" style="padding-left:44px; padding-right:44px;" />
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script src="~/js/showPassword.js"></script>

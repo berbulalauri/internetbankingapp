@@ -1,0 +1,107 @@
+﻿@using BBS.Web.Constants
+@using BBS.Models.Models
+@model BBS.Web.Models.EmploymentLoanRequestViewModel
+@{
+    ViewData["Title"] = "Order Loan";
+}
+
+@{ var loanType = ViewData[ViewDataKeys.LoanType] as LoanType;}
+
+    <div class="container">
+        <h1 class="text-center">Order Loan</h1>
+
+        @if (ViewData[ViewDataKeys.LoanRequestSuccess] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Success!</h4>
+                <hr />
+                <p>@ViewData[ViewDataKeys.LoanRequestSuccess]</p>
+            </div>
+        }
+
+        <form asp-action="Create" class="card p-2">
+
+            <div class="form-group row">
+                <label for="Loan-name" class="col-sm-3 col-form-label">Loan Name</label>
+                <div class="col-sm-auto">
+                    <p class=" col-form-label" id="Loan-name">@ViewData[ViewDataKeys.LoanType]</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Employment" class="col-sm-3 col-form-label">Employment</label>
+                <div class="col-sm-auto">
+                    <select asp-for="Employment.EmploymentTypeId" class="form-control" asp-items="ViewBag.EmploymentTypeId"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Employment.DateOfEmployment" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-auto">
+                    <input asp-for="Employment.DateOfEmployment" class="form-control" />
+                    <span asp-validation-for="Employment.DateOfEmployment" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="Employment.OfficePhoneNumber" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-auto">
+                    <input asp-for="Employment.OfficePhoneNumber" class="form-control" placeholder="+995 *** *** ***" />
+                    <span asp-validation-for="Employment.OfficePhoneNumber" class="text-danger" placeholder="+995 ... ... ..."></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label asp-for="LoanRequest.LoanSum" class="col-sm-3 col-form-label"></label>
+                <div class="col-sm-auto">
+                    <input asp-for="LoanRequest.LoanSum" class="form-control" placeholder="0.00" />
+                    <span asp-validation-for="LoanRequest.LoanSum" class="text-danger">@ViewData[ViewDataKeys.LoanSumException]</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Currency" class="col-sm-3 col-form-label">Currency</label>
+                <div class="col-sm-auto">
+                    <p>@loanType.Currency.Name</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Term" class="col-sm-3 col-form-label">Term (in month)</label>
+                <div class="col-sm-auto">
+                    <input asp-for="LoanRequest.Term" class="form-control" />
+                    <span asp-validation-for="LoanRequest.Term" class="text-danger" placeholder="0">@ViewData[ViewDataKeys.LoanTermException]</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Account-for-accrue-loan" class="col-sm-3 col-form-label">Account for accrue loan</label>
+                <div class="col-sm-auto">
+                    <select asp-for="LoanRequest.AccrueAccountId" class="form-control" asp-items="ViewBag.UserAccountId"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Account-to-transfer-from" class="col-sm-3 col-form-label">Account to transfer from</label>
+                <div class="col-sm-auto">
+                    <select asp-for="LoanRequest.TransferAccountId" class="form-control" asp-items="ViewBag.UserAccountId"></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="Interest-rate" class="col-sm-3 col-form-label">Interest rate</label>
+                <div class="col-sm-auto">
+                    <p>@loanType.InterestRate %</p>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <a asp-controller="Loan" asp-action="ChooseLoan" class="btn btn-danger float-right">CANCEL</a>
+
+                    <input type="submit" class="btn btn-primary float-right" value="SEND" />
+                </div>
+            </div>
+        </form>
+    </div>
+

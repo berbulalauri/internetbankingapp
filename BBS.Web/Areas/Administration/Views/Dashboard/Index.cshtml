@@ -1,0 +1,507 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@{
+    ViewData["Title"] = "Dashboard";
+    var listOfUsersWithCompletedTransactions = ViewData["transactOfUsers"] as List<BBS.Models.Models.User>;
+    var listOfDeposits = ViewData["transactOfDeposit"] as List<BBS.Models.Models.Deposit>;
+    var listOfLoans = ViewData["transactOfLoan"] as List<BBS.Models.Models.Loan>;
+    var listOfComplitedTransactions = ViewData["transactOfTransactions"] as List<BBS.Models.Models.Transactions>;
+    int? id = ViewData["userId"] as int?;
+    bool ascend = (ViewData["orderInfo"] as Tuple<string, bool>).Item2;
+    string orderBy = (ViewData["orderInfo"] as Tuple<string, bool>).Item1;
+}
+
+<html lang="en">
+<head>
+
+<link rel="stylesheet" id="compiled.css-css" href="~/css/staticStyles.css" type="text/css" media="all">
+<style>
+    .table-wrapper
+    {
+        min-width: 80%;
+        max-width: 100%;
+        min-height: 80px;
+        max-height: 360px;
+        overflow: auto;
+    }
+    table
+    {
+        border: 1px solid black;
+        margin-right: 20px;
+    }
+    nav.navbar.custom-navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light {
+        background-color: white !important;
+    }
+
+    main.pb-3 {
+        margin-top: 26px;
+    }
+
+    #ctl00_XXX {
+        float: left;
+        width: 62px;
+        height: 62px;
+    }
+
+    .place-two-div {
+        max-width: 100%;
+    }
+
+    #clear {
+        clear: both;
+    }
+
+    .dtHorizontalVerticalExampleWrapper {
+        max-width: 100%;
+    }
+
+    #dtHorizontalVerticalExample th,
+    td {
+        white-space: nowrap;
+    }
+    .content {
+        margin-bottom: 70px;
+    }
+    main {
+        margin-bottom: 70px;
+    }
+</style>
+<style>
+.group .circular-progress60 {
+  background: linear-gradient(90deg, #c722bb 50%, transparent 50%, transparent), linear-gradient(270deg, #c722bb 50%, #E0E0E0 50%, #E0E0E0);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 200px;
+  margin: 2em auto;
+  position: relative;
+  min-width: 200px;
+  margin: 10px;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+}
+.group .circular-progress60::before {
+  background-color: #FAFAFA;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  content: "@ViewData["getUserCount"]";
+  font-size: 40px;
+  /*font-weight: bold;*/
+  height: 100%;
+  left: 0;
+  line-height: 200px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  -webkit-transform: scale(0.87);
+          transform: scale(0.87);
+  width: 100%;
+}
+.group .circular-progress60:hover {
+  box-shadow: 0 0 100px 1px rgba(255, 214, 112, 0.35);
+}
+
+.group .circular-progress61 {
+  background: linear-gradient(90deg, #FF9770 50%, transparent 50%, transparent), linear-gradient(270deg, #FF9770 50%, #E0E0E0 50%, #E0E0E0);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 200px;
+  margin: 2em auto;
+  position: relative;
+  min-width: 200px;
+  margin: 10px;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+}
+
+.group .circular-progress61::before {
+  background-color: #FAFAFA;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  content: "@ViewData["getLoanCount"]";
+  font-size: 40px;
+  /*font-weight: bold;*/
+  height: 100%;
+  left: 0;
+  line-height: 200px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  -webkit-transform: scale(0.87);
+          transform: scale(0.87);
+  width: 100%;
+}
+.group .circular-progress61:hover {
+  box-shadow: 0 0 100px 1px rgba(255, 214, 112, 0.35);
+}
+
+.group .circular-progress75 {
+  background: linear-gradient(90deg, #FF9770 50%, transparent 50%, transparent), linear-gradient(270deg, #FF9770 50%, #E0E0E0 50%, #E0E0E0);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 200px;
+  margin: 2em auto;
+  position: relative;
+  min-width: 200px;
+  margin: 10px;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+}
+.group .circular-progress75::before {
+  background-color: #FAFAFA;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  content: "@ViewData["getLoanAmount"] ₾";
+  font-size: 25px;
+  /*font-weight: bold;*/
+  height: 100%;
+  left: 0;
+  line-height: 200px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  -webkit-transform: scale(0.87);
+          transform: scale(0.87);
+  width: 100%;
+}
+.group .circular-progress75:hover {
+  box-shadow: 0 0 100px 1px rgba(255, 214, 112, 0.35);
+}
+.group .circular-progress85 {
+  background: linear-gradient(90deg, #70D6FF 50%, transparent 50%, transparent), linear-gradient(270deg, #70D6FF 50%, #E0E0E0 50%, #E0E0E0);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 200px;
+  margin: 2em auto;
+  position: relative;
+  min-width: 200px;
+  margin: 10px;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+}
+.group .circular-progress85::before {
+  background-color: #FAFAFA;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  content: "@ViewData["getDepoCount"]";
+  font-size: 50px;
+  /*font-weight: bold;*/
+  height: 100%;
+  left: 0;
+  line-height: 200px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  -webkit-transform: scale(0.87);
+          transform: scale(0.87);
+  width: 100%;
+}
+.group .circular-progress85:hover {
+  box-shadow: 0 0 100px 1px rgba(255, 214, 112, 0.35);
+}
+.group .circular-progress90 {
+    background: linear-gradient(90deg, #8670ff 50%, transparent 50%, transparent), linear-gradient(270deg, #8670ff 50%, #E0E0E0 50%, #E0E0E0);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    height: 200px;
+    margin: 2em auto;
+    position: relative;
+    min-width: 200px;
+    margin: 10px;
+    -webkit-transition: all .3s linear;
+    transition: all .3s linear;
+}
+.group .circular-progress90::before {
+  background-color: #FAFAFA;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  content: "@ViewData["getDepoAmount"] ₾";
+  font-size: 24px;
+  /*font-weight: bold;*/
+  height: 100%;
+  left: 0;
+  line-height: 200px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  -webkit-transform: scale(0.87);
+          transform: scale(0.87);
+  width: 100%;
+}
+.group .circular-progress90:hover {
+  box-shadow: 0 0 100px 1px rgba(255, 214, 112, 0.35);
+}
+.group .circular-progress100 {
+  background: -webkit-gradient(linear, left top, right top, color-stop(50%, #C8E9A0), color-stop(50%, transparent), to(transparent)), -webkit-gradient(linear, right top, left top, color-stop(50%, #C8E9A0), color-stop(50%, #E0E0E0), to(#E0E0E0));
+  background: linear-gradient(90deg, #C8E9A0 50%, transparent 50%, transparent), linear-gradient(270deg, #C8E9A0 50%, #E0E0E0 50%, #E0E0E0);
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  height: 200px;
+  margin: 2em auto;
+  position: relative;
+  min-width: 200px;
+  margin: 10px;
+  -webkit-transition: all .3s linear;
+  transition: all .3s linear;
+}
+.group .circular-progress100::before {
+  background-color: #FAFAFA;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  color: rgba(0, 0, 0, 0.54);
+  content: "@ViewData["bankCurrentBalance"] ₾";
+  font-size: 22px;
+  /*font-weight: bold;*/
+  height: 100%;
+  left: 0;
+  line-height: 200px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  -webkit-transform: scale(0.87);
+          transform: scale(0.87);
+  width: 100%;
+}
+.group .circular-progress100:hover {
+  box-shadow: 0 0 100px 1px rgba(255, 214, 112, 0.35);
+}
+    </style>
+</head>
+
+<body class="" data-spy="scroll" data-target="#scrollspy" data-offset="15">
+    <main>
+        <div class="content">
+            <div class="group">
+                <div class="circular-progress60"></div>
+                <div class="circular-text">Registered Customers</div>
+            </div>
+
+            <div class="group">
+                <div class="circular-progress85"></div>
+                <div class="circular-text">Number Of Deposit In Bank</div>
+            </div>
+            <div class="group">
+                <div class="circular-progress100"></div>
+                <div class="circular-text">Current Bank Balance</div>
+            </div>
+
+            <div class="group">
+                <div class="circular-progress75"></div>
+                <div class="circular-text">Sum Of All Required Loans</div>
+            </div>
+
+            <div class="group">
+                <div class="circular-progress90"></div>
+                <div class="circular-text">Sum Of All Deposit Amount</div>
+            </div>
+
+        </div>
+
+        <h5 class="text-center text-muted mt-2 mb-4">List Of Customer With Completed Transaction</h5>
+        <div class="table-wrapper">
+            <form action="javascript:void(0);">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input class="form-control border-info" name="questionText1" placeholder="Filter" />
+                    </div>
+                    <div class="form-group col-md-3 ml-5">
+                        <input type="submit" asp-action="Index" value="Search" class="btn btn-dark" />
+                        <input type="submit" asp-action="Index" value="Reset" class="btn btn-dark" />
+                    </div>
+                </div>
+            </form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="thead-light text-center">
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("User Name", "UserName", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Last Name", "FirstName", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Last Name", "LatsName", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Email", "Email", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Address", "Address", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("City", "City", null), ViewData)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in listOfUsersWithCompletedTransactions)
+                    {
+                        <tr class="text-center">
+                            <td>@item.UserName</td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LatsName</td>
+                            <td>@item.Email</td>
+                            <td>@item.Address</td>
+                            <td>@item.City.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+        <h5 class="text-center text-muted mt-2 mb-4">List Of Opened Deposits</h5>
+        <div class="table-wrapper">
+            <form action="javascript:void(0);">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input class="form-control border-info" name="questionText2" placeholder="Filter" />
+                    </div>
+                    <div class="form-group col-md-3 ml-5">
+                        <input type="submit" asp-action="Index" value="Search" class="btn btn-dark" />
+                        <input type="submit" asp-action="Index" value="Reset" class="btn btn-dark" />
+                    </div>
+                </div>
+            </form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="thead-light text-center">
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Deposit Type Name", "DepositType", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Amount", "DepositAmount", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Currency", "Currency", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("user Name", "User", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Account For Interest", "AccountForInterest", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Deposit Term", "DepositTerm", null), ViewData)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in listOfDeposits)
+                    {
+                        <tr class="text-center">
+                            <td>@item.DepositType.Name</td>
+                            <td>@item.DepositAmount</td>
+                            <td>@item.Currency.Name</td>
+                            <td>@item.User.FirstName</td>
+                            <td>@item.AccountForInterest.Name</td>
+                            <td>@item.DepositTerm.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+        <h5 class="text-center text-muted mt-2 mb-4">List Of Taken Loans</h5>
+        <div class="table-wrapper">
+            <form action="javascript:void(0);">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input class="form-control border-info" name="questionText3" placeholder="Filter" />
+                    </div>
+                    <div class="form-group col-md-3 ml-5">
+                        <input type="submit" asp-action="Index" value="Search" class="btn btn-dark" />
+                        <input type="submit" asp-action="Index" value="Reset" class="btn btn-dark" />
+                    </div>
+                </div>
+            </form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="thead-light text-center">
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Sum Of Loan", "LoanRequest", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Status", "Status", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Loan Type Name", "LoanType", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Date", "Date", null), ViewData)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in listOfLoans)
+                    {
+                        <tr class="text-center">
+                            <td>@item.LoanRequest.LoanSum</td>
+                            <td>@item.Status</td>
+                            <td>@item.LoanRequest.LoanType.Name</td>
+                            <td>@item.Date</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <br />
+        <h5 class="text-center text-muted mt-2 mb-4">List Of Completed Transaction</h5>
+        <div class="table-wrapper">
+            <form action="javascript:void(0);">
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <input class="form-control border-info" name="questionText4" placeholder="Filter" />
+                    </div>
+                    <div class="form-group col-md-3 ml-5">
+                        <input type="submit" asp-action="Index" value="Search" class="btn btn-dark" />
+                        <input type="submit" asp-action="Index" value="Reset" class="btn btn-dark" />
+                    </div>
+                </div>
+            </form>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="thead-light text-center">
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Sender Name", "SenderCard", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Receiver Name", "ReceiverAccount", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Amount", "Amount", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Address", "Service", null), ViewData)
+                        </th>
+                        <th scope="col">
+                            @await Html.PartialAsync("_SortingPartial", new Tuple<string, string, string>("Description", "Description", null), ViewData)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in listOfComplitedTransactions)
+                    {
+                        <tr class="text-center">
+                            <td>@item.SenderCard.Name</td>
+                            <td>@item.ReceiverAccount.Name</td>
+                            <td>@item.Amount</td>
+                            <td>@item.Service.Name</td>
+                            <td>@(item.Description ?? item.PersonalAccountId)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using BBS.Models.Models
+@using BBS.Web.Areas.Administration.Constants
+@model IEnumerable<BBS.Models.Models.LoanType>
+@{
+    ViewData["Title"] = "Loan Types";
+}
+
+<h1 class="d-flex justify-content-center opacity-90 text-muted mt-4">Loan Managment</h1>
+
+<table class="table table-bordered table-responsive text-nowrap">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+            <th>@Html.DisplayNameFor(model => model.GeneralInformation)</th>
+            <th>@Html.DisplayNameFor(model => model.MinLoanSum)</th>
+            <th>@Html.DisplayNameFor(model => model.MaxLoanSum)</th>
+            <th>@Html.DisplayNameFor(model => model.InterestRate)</th>
+            <th>@Html.DisplayNameFor(model => model.Currency.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.LoanSummary)</th>
+            <th>@Html.DisplayNameFor(model => model.MonthlyFee)</th>
+            <th>@Html.DisplayNameFor(model => model.MinTerm)</th>
+            <th>@Html.DisplayNameFor(model => model.MaxTerm)</th>
+            <th>@Html.DisplayNameFor(model => model.PaymentForAccidentInsurance)</th>
+            <th>@Html.DisplayNameFor(model => model.FeeForInsuranceLoan)</th>
+            <th>@Html.DisplayNameFor(model => model.FreeForServicesUponReciptCash)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                <td>@Html.DisplayFor(modelItem => item.GeneralInformation)</td>
+                <td>@Html.DisplayFor(modelItem => item.MinLoanSum)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaxLoanSum)</td>
+                <td>@Html.DisplayFor(modelItem => item.InterestRate)</td>
+                <td>@Html.DisplayFor(modelItem => item.Currency.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.LoanSummary)</td>
+                <td>@Html.DisplayFor(modelItem => item.MonthlyFee)</td>
+                <td>@Html.DisplayFor(modelItem => item.MinTerm)</td>
+                <td>@Html.DisplayFor(modelItem => item.MaxTerm)</td>
+                <td>@Html.DisplayFor(modelItem => item.PaymentForAccidentInsurance)</td>
+                <td>@Html.DisplayFor(modelItem => item.FeeForInsuranceLoan)</td>
+                <td>@Html.DisplayFor(modelItem => item.FreeForServicesUponReciptCash)</td>
+                <td>
+                    @{ var hasLoan = item.LoanRequests.Any(x => x.Loan != null && x.Loan.Status == AdministratorArea.ActiveLoanStatus);}
+                    <a class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (User.IsInRole("Admin") && !hasLoan)
+                    {
+                        <a class="btn btn-dark" asp-action="Update" asp-route-id="@item.Id">Update</a>
+                        <a class="btn btn-dark" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <a class="btn btn-secondary ml-auto mr-3" asp-action="Create">Add New Loan Type</a>
+</div>
+
+
+

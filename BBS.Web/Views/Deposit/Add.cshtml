@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewData["Title"] = "Add";
+}
+
+    <div class="text-center">
+        <h2>Add new deposit</h2>
+    </div>
+    <div class="border rounded-right row">
+        <div class="col-sm-6 row" style="margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Name</label>
+            </div>
+            <div class="col-sm-6">
+                <select class="form-control" id="Terms-of-deposit">
+                    <option selected>Select one</option>
+                    <option value="1">First Option</option>
+                    <option value="2">Second Option</option>
+                    <option value="3">Third Option</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-6 row" style="margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Currency</label>
+            </div>
+            <div class="col-sm-6">
+                <select class="form-control" id="Terms-of-deposit">
+                    <option selected>Select one</option>
+                    <option value="1">GEL</option>
+                    <option value="2">USD</option>
+                    <option value="3">EUR</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-6 row" style="margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Description</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" style="height:150%;" />
+            </div>
+        </div>
+        <div class="col-sm-6 row" style="margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Interest payment</label>
+            </div>
+            <div class="col-sm-6">
+                <select class="form-control" id="Terms-of-deposit">
+                    <option selected>Select one</option>
+                    <option value="1">First Option</option>
+                    <option value="2">Second Option</option>
+                    <option value="3">Third Option</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-sm-6 row" style="margin-top:2%; margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Benefits</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" style="height:150%;" />
+            </div>
+        </div>
+        <div class="col-sm-6 row" style="margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Minimum amount</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" />
+            </div>
+        </div>
+
+        <div class="col-sm-6 row" style="margin-top:2%; margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Anual</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" />
+            </div>
+        </div>
+        <div class="col-sm-6 row" style="margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Maximum amount</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" />
+            </div>
+        </div>
+
+        <div class="col-sm-6 row" style="margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Bonus</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" />
+            </div>
+        </div>
+        <div class="col-sm-6 row" style="margin-top:2%;">
+            <div class="col-sm-6">
+                <label>Replenishment</label>
+            </div>
+            <div class="col-sm-6">
+                <input class="form-control" type="number" />
+            </div>
+        </div>
+
+        <div class="col-sm-12 row d-flex justify-content-end" style="margin-top:2%; margin-bottom:2%;">
+            <div class="col-sm-1">
+                <a class="btn btn-secondary" asp-action="Index" asp-controller="Home">Cancel</a>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-primary" asp-action="Index" asp-controller="Home">Submit</a>
+            </div>
+        </div>
+    </div>
+

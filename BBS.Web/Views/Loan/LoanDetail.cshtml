@@ -1,0 +1,128 @@
+﻿@model BBS.Models.Models.LoanType
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h1 class="text-center">Loan details</h1>
+
+<div class="container border" style="padding-bottom:20px">
+    <div class="row mt-5 ml-auto">
+        <div class="col-md-3 justify-content-center align-items-center">
+            <div class="c100">
+                <!--Change p75 class for progress circle to update*-->
+                <span class="graph-circle">@Model.InterestRate</span><!--and than title to mach the progress*-->
+                <div class="slice">
+                    <div class="bar"></div>
+                    <div class="fill"></div>
+                </div>
+            </div><!--end of Proggressbar*-->
+
+        </div>
+        <div class="col-md-9">
+            <h4 class="text-center">@Model.Name</h4>
+            <br />
+            <div class="col-md-12">
+                <p>@Model.Description</p>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-secondary alert-dismissible row">
+        <ul class="col-8">
+            <li>Fixed interest rate - Uncharged for the entire loan period.</li>
+            <li>Full infomration about all interest and commisions on the loan.</li>
+            <li>14 days grace period - you can return the loan within the specified period.</li>
+        </ul>
+        <div class="col-4 pt-4">
+            <a class="btn btn-outline-info btn-sm text-uppercase font-weight-bold text-secondary" asp-controller="LoanRequest" asp-action="Create" asp-route-id="@Model.Id" style="float:right">Make a Request</a>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>General Information</h3>
+            <div class="table table-borderless">
+                <tbody>
+                <ul>
+                    <li>Green cash loan at ACADEMYBANK:</li>
+                </ul>
+                <ul>
+                    <li>simple and transperent conditions and terms in the popular stable Bank</li>
+                </ul>
+                <ul>
+                    <li>Posibility to select optimal payment</li>
+                </ul>
+                <ul>
+                    <li>fixed interest rate for the entire financing period</li>
+                </ul>
+                <ul>
+                    <li>payment of interest and fee only for the loan utilization period</li>
+                </ul>
+                <ul>
+                    <li>early rapayment without penaltis</li>
+                </ul>
+
+                </tbody>
+            </div>
+
+
+        </div>
+        <div class="col-md-6">
+            <table class="table table-borderless">
+                <thead>
+                    <tr class="text-center">
+                        <h3>General Condition</h3>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Credit Currency</td>
+                        <td>@Model.Currency.Name</td>
+
+
+
+
+                    </tr>
+                    <tr>
+                        <td>Loan sum</td>
+                        <td>@Model.MinLoanSum to @Model.MaxLoanSum GEL</td>
+
+                    </tr>
+                    <tr>
+                        <td>Interest rate</td>
+                        <td>From @Model.InterestRate</td>
+                    </tr>
+                    <tr>
+                        <td>Term</td>
+                        <td>From @Model.MinTerm To @Model.MaxTerm</td>
+                    </tr>
+                    <tr>
+                        <td>Payment for accident insurance</td>
+                        <td>@Model.PaymentForAccidentInsurance @Model.Currency.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Fee for issuance loan</td>
+                        <td>@Model.FeeForInsuranceLoan</td>
+
+                    </tr>
+                    <tr>
+                        <td>Fee for services upon recipit cash</td>
+                        <td>@Model.FreeForServicesUponReciptCash @Model.Currency.Name</td>
+                    </tr>
+
+
+
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/LoanDetail.js"></script>
+}
