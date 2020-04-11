@@ -12,11 +12,6 @@ using System.Threading.Tasks;
 
 namespace BBS.Web.Controllers
 {
-
-
-
-
-
     [Authorize]
     public class DepositController : Controller
     {
@@ -81,9 +76,7 @@ namespace BBS.Web.Controllers
 
             var depositsTypes = await _depositService.GetAllTypes();
             var depositType = depositsTypes.FirstOrDefault(x => x.Id == deposit.DepositTypeId);
-
             ViewData["DepositTypeId"] = depositType;
-
             ViewData["DepositTermId"] = new SelectList(await _depositTermService.GetAllWithTerm(), "Id", "Name");
             ViewData["CurrencyId"] = new SelectList(await _currencyService.GetAll(), "Id", "Name");
             ViewData["AccountToTransferId"] = new SelectList(await _bankAccountService.GetUserAccounts(user.Id), "Id", "Name");
