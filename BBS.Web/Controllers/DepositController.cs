@@ -1,4 +1,4 @@
-﻿using BBS.Core.Services;
+using BBS.Core.Services;
 using BBS.Interfaces.Services;
 using BBS.Models.Models;
 using Microsoft.AspNetCore.Authorization;
